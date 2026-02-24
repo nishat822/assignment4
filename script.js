@@ -2,16 +2,15 @@ let interviewList = [];
 let rejectedList = [];
 let currentStatus = "all";
 
-const total = document.getElementById("total-count");
-const interview = document.getElementById("interview-count");
-const rejected = document.getElementById("rejected-count");
+const total = document.getElementsByClassName("Total");
+const interview = document.getElementsByClassName("Interview");
+const rejected = document.getElementsByClassName("rejected-count");
 
 const allApplications = document.getElementById("JobSelects");
 const filterSection = document.getElementById("filter-section");
 
 
 // ================= COUNT =================
-
 function updateCount() {
   total.innerText = allApplications.children.length;
   interview.innerText = interviewList.length;
@@ -21,8 +20,7 @@ function updateCount() {
 updateCount();
 
 
-// ================= FILTER BUTTON =================
-
+// ================= FILTER BUTTON STYLE =================
 function toggleStyle(id) {
 
   currentStatus = id;
@@ -40,24 +38,22 @@ function toggleStyle(id) {
   active.classList.remove("bg-gray-300", "text-black");
   active.classList.add("bg-blue-500", "text-white");
 
-  if (id === "all-btn") {
+  if (className === "all-btn") {
     allApplications.classList.remove("hidden");
     filterSection.classList.add("hidden");
   }
 
-  if (id === "interview-btn") {
+  if (className === "interview-btn") {
     renderInterview();
   }
 
-  if (id === "rejected-btn") {
+  if (className === "rejected-btn") {
     renderRejected();
   }
 }
 
 
-
 // ================= MAIN CLICK EVENT =================
-
 document.addEventListener("click", function (e) {
 
   const card = e.target.closest(".job-card");
@@ -70,8 +66,6 @@ document.addEventListener("click", function (e) {
     about: card.querySelector(".about").innerText,
     time: card.querySelector(".time").innerText,
     descriptions: card.querySelector(".descriptions").innerText,
-    interviewBtn: card.querySelector(".inter-btn"),
-  rejectBtn: card.querySelector(".reject-btn")
   };
 
   // ===== INTERVIEW =====
@@ -80,6 +74,7 @@ document.addEventListener("click", function (e) {
     if (!interviewList.find(item => item.title === title)) {
       interviewList.push(data);
       rejectedList = rejectedList.filter(item => item.title !== title);
+
       card.querySelector(".status").innerText = "Interview";
     }
 
@@ -92,14 +87,15 @@ document.addEventListener("click", function (e) {
     if (!rejectedList.find(item => item.title === title)) {
       rejectedList.push(data);
       interviewList = interviewList.filter(item => item.title !== title);
+
       card.querySelector(".status").innerText = "Rejected";
     }
 
     updateCount();
   }
 
-  // ===== TRASH =====
-  if (e.target.closest(".trash-btn")) {
+  // ===== DELETE =====
+  if (e.target.classList.contains("trash-btn")) {
 
     interviewList = interviewList.filter(item => item.title !== title);
     rejectedList = rejectedList.filter(item => item.title !== title);
@@ -111,58 +107,51 @@ document.addEventListener("click", function (e) {
 });
 
 
-// ================= RENDER FUNCTIONS =================
-
+// ================= RENDER INTERVIEW =================
 function renderInterview() {
 
   allApplications.classList.add("hidden");
   filterSection.classList.remove("hidden");
-
   filterSection.innerHTML = "";
 
   interviewList.forEach(item => {
-    filterSection.innerHTML += createCard(item, "Interview");
+    filterSection.appendChild(createCard(item, "Interview"));
   });
-
 }
 
+
+// ================= RENDER REJECTED =================
 function renderRejected() {
 
   allApplications.classList.add("hidden");
   filterSection.classList.remove("hidden");
-
   filterSection.innerHTML = "";
 
   rejectedList.forEach(item => {
-    filterSection.innerHTML += createCard(item, "Rejected");
+    filterSection.appendChild(createCard(item, "Rejected"));
   });
-
 }
 
 
 // ================= CARD TEMPLATE =================
-
 function createCard(data, statusText) {
-  return `
-    <div class="job-card bg-white p-[25px] rounded-md mb-4">
-      
-      <div class="flex justify-between">
-        <div class="space-y-[8px]">
-          <h2 class="title text-2xl font-bold">${data.title}</h2>
-          <p class="about text-[20px] font-medium text-[#858585]">${data.about}</p>
-          <p class="time text-[18px] font-normal">${data.time}</p>
-          
-          <button class="status bg-[#e2ecff] text-[#5185ff] px-4 py-2 rounded-lg">
-            ${statusText}
-          </button>
-          
-          <p class="descriptions text-[18px] font-normal">
-            ${data.descriptions}
-          </p>
-        </div>
-      </div>
-      
 
-    </div>
+  const div = document.createElement("div");
+  div.className = "job-card bg-white p-6 rounded-md mb-4";
+
+  div.innerHTML = `
+      <div class="space-y-2">
+        <h2 class="title text-2xl font-bold">${data.title}</h2>
+        <p class="about text-gray-500">${data.about}</p>
+        <p class="time">${data.time}</p>
+
+        <button class="status bg-blue-100 text-blue-500 px-4 py-2 rounded-lg">
+          ${statusText}
+        </button>
+
+        <p class="descriptions">${data.descriptions}</p>
+      </div>
   `;
+
+  return div;
 }
