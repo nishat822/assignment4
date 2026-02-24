@@ -69,7 +69,9 @@ document.addEventListener("click", function (e) {
     title: title,
     about: card.querySelector(".about").innerText,
     time: card.querySelector(".time").innerText,
-    descriptions: card.querySelector(".descriptions").innerText
+    descriptions: card.querySelector(".descriptions").innerText,
+    interviewBtn: card.querySelector(".inter-btn"),
+  rejectBtn: card.querySelector(".reject-btn")
   };
 
   // ===== INTERVIEW =====
@@ -141,18 +143,26 @@ function renderRejected() {
 // ================= CARD TEMPLATE =================
 
 function createCard(data, statusText) {
-
   return `
-  <div class="job-card flex justify-between bg-white p-[25px] rounded-md mb-4">
-    <div class="space-y-[8px]">
-      <h2 class="title text-2xl font-bold">${data.title}</h2>
-      <p class="about text-[20px] font-medium text-[#858585]">${data.about}</p>
-      <p class="time text-[18px] font-normal">${data.time}</p>
-      <button class="status bg-[#e2ecff] text-[#5185ff] px-4 py-2 rounded-lg">
-        ${statusText}
-      </button>
-      <p class="descriptions text-[18px] font-normal">${data.descriptions}</p>
+    <div class="job-card bg-white p-[25px] rounded-md mb-4">
+      
+      <div class="flex justify-between">
+        <div class="space-y-[8px]">
+          <h2 class="title text-2xl font-bold">${data.title}</h2>
+          <p class="about text-[20px] font-medium text-[#858585]">${data.about}</p>
+          <p class="time text-[18px] font-normal">${data.time}</p>
+          
+          <button class="status bg-[#e2ecff] text-[#5185ff] px-4 py-2 rounded-lg">
+            ${statusText}
+          </button>
+          
+          <p class="descriptions text-[18px] font-normal">
+            ${data.descriptions}
+          </p>
+        </div>
+      </div>
+      
+
     </div>
-  </div>
   `;
 }

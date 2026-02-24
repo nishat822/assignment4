@@ -219,7 +219,44 @@
 
             
     </main>
-    
+    <footer class="mt-16 container mx-auto mb-[100px]">
+        <h1 class="text-5xl font-bold ml-[15px]">Job Application Tracker</h1>
+        <div class="grid grid-cols-3 mt-[20px]">
+            <div class="bg-[#ffffff] p-[30px] rounded-lg m-4 ">
+                <p class="text-[18px] font-medium" ">Total</p>
+                <p class="text-5xl font-bold Total" id="total-count">0</p>
+            </div>
+              <div class="bg-[#ffffff] p-[30px] rounded-lg m-4 ">
+                <p class="text-[18px] font-medium"  >Interview</p>
+                <p class="text-5xl font-bold text-[#2bce0a] Interview" id="interview-count">0</p>
+            </div>
+              <div class="bg-[#ffffff] p-[30px] rounded-lg m-4 ">
+                <p class="text-[18px] font-medium" >Rejected</p>
+                <p class="text-5xl font-bold text-[#ce140a]" id="rejected-count">0</p>
+            </div>
+        </div>
+        <hr class="bg-[#e8e8e8] h-[2px] border-0 mt-[20px] rounded-lg">
+
+        <section>
+            <div class="container mx-auto mt-[20px]">
+            <div class="flex justify-between">
+                <h1 class="text-2xl font-bold">Available Jobs</h1>
+                <p class="text-[25px] font-medium text-[#979899]">0 jobs</p>
+            </div>
+            <div  class=" all mb-[20px] mt-6">
+                <button onclick="toggleStyle('all-btn')" class=" bg-gray-300  text-black px-4 py-2 rounded-lg all-btn" id="all-btn" >All</button>
+                 <button onclick="toggleStyle('interview-btn')" class=" bg-gray-300 text-black px-4 py-2 rounded-lg ml-1.5 mr-1.5 interview-btn " id="interview-btn">Interview</button>
+                  <button onclick="toggleStyle('rejected-btn')" class="bg-gray-300 text-black px-4 py-2 rounded-lg rejected-btn" id="rejected-btn">Rejected</button>
+            </div>
+            <div class="bg-[#f8f8f8] items-center justify-center flex flex-col py-10 rounded-lg h-[400px] ">
+                <img src="./img/file.png" alt="">
+                <h1 class="text-2xl font-bold">No jobs available</h1>
+                <p class="text-[25px] font-medium text-[#979899]">Check back soon for new job opportunities</p>
+
+            </div>
+        </div> 
+        </section>
+    </footer>
     <script src="./script.js"></script>
 </body>
 </html>
